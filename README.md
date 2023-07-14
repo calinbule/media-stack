@@ -2,6 +2,25 @@
 
 
 1) clone this repo
-2) create the .env file (see the env.sample file for more instructions)
-3) if you want to deploy both Jellyfin and Plex, leave the script and the Docker Compose files as they are; if you only want one service, comment the related lines in the script and in the Docker Compose file
-4) run "docker-compose up -d"
+
+```bash
+git clone https://github.com/calinbule/media-stack.git .
+```
+
+2) rename the evv.sample file to .env then follow the instructions inside the file to define the necessary variables 
+
+```bash
+mv env.sample .env
+```
+
+3) set the executable flag on the install-media file
+
+```bash
+chmod +x install-media
+```
+
+4) run the install-media file to create the directory structure and create the docker cluster; this utility ca also be used to update the cluster if needed
+
+```bash
+./install-media
+```

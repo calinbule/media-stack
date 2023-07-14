@@ -1,0 +1,48 @@
+#!/bin/bash
+
+set -o allexport
+source .env
+set +o allexport
+
+# Import the environment variables
+media_stack_config=$MEDIA_STACK_CONFIG
+media_stack_downloads=$MEDIA_STACK_DOWNLOADS
+media_stack_unfinished_downloads=$MEDIA_STACK_DOWNLOADS/unfinished
+media_stack_plex_cache=$MEDIA_STACK_PLEX_CACHE
+media_stack_plex_transcode=$MEDIA_STACK_PLEX_TRANSCODE
+media_stack_jellyfin_cache=$MEDIA_STACK_JELLYFIN_CACHE
+
+
+# Create necessary directories
+mkdir -p "$media_stack_config"
+
+# config
+mkdir -p "$media_stack_config/plex"
+mkdir -p "$media_stack_config/radarr"
+mkdir -p "$media_stack_config/sonarr"
+mkdir -p "$media_stack_config/jackett"
+mkdir -p "$media_stack_config/flaresolverr"
+mkdir -p "$media_stack_config/transmission"
+mkdir -p "$media_stack_config/jellyfin"
+
+# cache
+mkdir -p "$media_stack_jellyfin_cache"
+mkdir -p "$media_stack_plex_cache"
+
+# download
+mkdir -p "$media_stack_downloads"
+mkdir -p "$media_stack_downloads/incomplete"
+
+# plex transcode
+mkdir -p "$media_stack_plex_transcode"
+
+
+# Set appropriate permissions for the directories
+chmod -R 755 "$media_stack_config"
+
+# Output a message indicating successful directory creation
+echo "Media stack directories created successfully."
+echo "Building the cluster"
+
+docker-compose up -d
+
