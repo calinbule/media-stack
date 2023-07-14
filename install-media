@@ -11,6 +11,7 @@ media_stack_unfinished_downloads=$MEDIA_STACK_DOWNLOADS/unfinished
 media_stack_plex_cache=$MEDIA_STACK_PLEX_CACHE
 media_stack_plex_transcode=$MEDIA_STACK_PLEX_TRANSCODE
 media_stack_jellyfin_cache=$MEDIA_STACK_JELLYFIN_CACHE
+media_stack_jellyfin_transcode=$MEDIA_STACK_JELLYFIN_TRANSCODE
 media_stack_media=$MEDIA_STACK_MEDIA
 movies_dir_name=$MOVIES_DIR_NAME
 shows_dir_name=$SHOWS_DIR_NAME
@@ -30,8 +31,8 @@ mkdir -p "$media_stack_config/jellyfin"
 
 #media
 mkdir -p "$media_stack_media/"
-# mkdir -p "$media_stack_media/$movies_dir_name"
-# mkdir -p "$media_stack_media/$shows_dir_name"
+mkdir -p "$media_stack_media/$movies_dir_name"
+mkdir -p "$media_stack_media/$shows_dir_name"
 
 # cache
 mkdir -p "$media_stack_jellyfin_cache"
@@ -43,6 +44,7 @@ mkdir -p "$media_stack_downloads/incomplete"
 
 # plex transcode
 mkdir -p "$media_stack_plex_transcode"
+mkdir -p "$media_stack_jellyfin_transcode"
 
 
 # Set appropriate permissions for the directories
@@ -51,6 +53,7 @@ chmod -R 755 "$media_stack_downloads"
 chmod -R 755 "$media_stack_plex_cache"
 chmod -R 755 "$media_stack_plex_transcode"
 chmod -R 755 "$media_stack_jellyfin_cache"
+chmod -R 755 "$media_stack_jellyfin_transcode"
 
 
 # Output a message indicating successful directory creation

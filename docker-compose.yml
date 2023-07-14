@@ -32,6 +32,7 @@ services:
       - ${MEDIA_STACK_CONFIG}/jellyfin:/config
       - ${MEDIA_STACK_MEDIA}:/data
       - ${MEDIA_STACK_JELLYFIN_CACHE}:/cache
+      - ${MEDIA_STACK_JELLYFIN_TRANSCODE}:/config/transcodes
     # Uncomment the following section for GPU support on Linux
     # devices:
     #   - /dev/dri:/dev/dri
@@ -119,8 +120,8 @@ services:
       - '6767:6767'
     volumes:
       - ${MEDIA_STACK_CONFIG}/bazarr:/config
-      # - ${MEDIA_STACK_MEDIA}/${BAZARR_DIR_FOLDER_NAME}:/movies 
-      # - ${MEDIA_STACK_MEDIA}/${BAZARR_DIR_FOLDER_NAME}:/tv 
+      # - ${MEDIA_STACK_MEDIA}/${MOVIES_DIR_NAME}:/movies 
+      # - ${MEDIA_STACK_MEDIA}/${SHOWS_DIR_NAME}:/tv 
     environment:
       - TZ=Europe/Bucharest
 
