@@ -12,7 +12,7 @@ services:
     volumes:
       - ${MEDIA_STACK_PATH}/plex:/config
       - ${MEDIA_STACK_PATH}/transcode:/transcode
-      - '${MEDIA_STACK_MEDIA_DIRECTORY}:/data'
+      - ${MEDIA_STACK_MEDIA_DIRECTORY}:/data
       - ${MEDIA_STACK_PATH}/plex/cache:/plex/Library/Application Support/Plex Media Server/Cache
     # Uncomment the following section for GPU support on Linux
     # devices:
@@ -30,7 +30,7 @@ services:
       - '8096:8096'
     volumes:
       - ${MEDIA_STACK_PATH}/jellyfin:/config
-      - '${MEDIA_STACK_MEDIA_DIRECTORY}:/data'
+      - ${MEDIA_STACK_MEDIA_DIRECTORY}:/data
       - ${MEDIA_STACK_PATH}/jellyfin/cache:/cache
     # Uncomment the following section for GPU support on Linux
     # devices:
@@ -50,7 +50,7 @@ services:
       - '7878:7878'
     volumes:
       - ${MEDIA_STACK_PATH}/radarr:/config
-      - '${MEDIA_STACK_MEDIA_DIRECTORY}:/movies'
+      - ${MEDIA_STACK_MEDIA_DIRECTORY}:/movies
       - ${MEDIA_STACK_PATH}/downloads:/downloads
     environment:
       - TZ=Europe/Bucharest
@@ -65,7 +65,7 @@ services:
       - '8989:8989'
     volumes:
       - ${MEDIA_STACK_PATH}/sonarr:/config
-      - '${MEDIA_STACK_MEDIA_DIRECTORY}:/tvshows'
+      - ${MEDIA_STACK_MEDIA_DIRECTORY}:/tvshows
       - ${MEDIA_STACK_PATH}/downloads:/downloads
     environment:
       - TZ=Europe/Bucharest
@@ -106,6 +106,21 @@ services:
       - ${MEDIA_STACK_PATH}/transmission:/config
       - ${MEDIA_STACK_PATH}/downloads:/downloads
       - ${MEDIA_STACK_PATH}/incomplete:/incomplete
+    environment:
+      - TZ=Europe/Bucharest
+
+  bazarr:
+    image: linuxserver/bazarr
+    container_name: bazarr
+    restart: unless-stopped
+    networks:
+      - media-stack-network
+    ports:
+      - '6767:6767'
+    volumes:
+      - ${MEDIA_STACK_PATH}/bazarr:/config
+      - ${MEDIA_STACK_MEDIA_DIRECTORY}/filme:/movies 
+      - ${MEDIA_STACK_MEDIA_DIRECTORY}/seriale:/tv 
     environment:
       - TZ=Europe/Bucharest
 
