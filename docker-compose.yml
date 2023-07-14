@@ -12,7 +12,7 @@ services:
     volumes:
       - ${MEDIA_STACK_CONFIG}/plex:/config
       - ${MEDIA_STACK_PLEX_TRANSCODE}:/transcode
-      - ${MEDIA_STACK_MEDIA_DIRECTORY}:/data
+      - ${MEDIA_STACK_MEDIA}:/data
       - ${MEDIA_STACK_PLEX_CACHE}:/plex/Library/Application Support/Plex Media Server/Cache
     # Uncomment the following section for GPU support on Linux
     # devices:
@@ -92,7 +92,7 @@ services:
     ports:
       - '8191:8191'
     volumes:
-      - ${MEDIA_STACK_PATH}/flaresolverr:/config
+      - ${MEDIA_STACK_CONFIG}/flaresolverr:/config
 
   transmission:
     image: linuxserver/transmission

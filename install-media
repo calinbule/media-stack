@@ -47,6 +47,11 @@ mkdir -p "$media_stack_plex_transcode"
 
 # Set appropriate permissions for the directories
 chmod -R 755 "$media_stack_config"
+chmod -R 755 "$media_stack_downloads"
+chmod -R 755 "$media_stack_plex_cache"
+chmod -R 755 "$media_stack_plex_transcode"
+chmod -R 755 "$media_stack_jellyfin_cache"
+
 
 # Output a message indicating successful directory creation
 echo "Media stack directories created successfully."
