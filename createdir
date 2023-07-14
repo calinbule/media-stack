@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -o allexport
+source .env
+set +o allexport
+
+# Declare the media stack path
+media_stack_path=$MEDIA_STACK_PATH
+
+# Create necessary directories
+mkdir -p "$media_stack_path/plex"
+mkdir -p "$media_stack_path/transcode"
+mkdir -p "$media_stack_path/plex/cache"
+mkdir -p "$media_stack_path/radarr"
+mkdir -p "$media_stack_path/downloads"
+mkdir -p "$media_stack_path/sonarr"
+mkdir -p "$media_stack_path/jackett"
+mkdir -p "$media_stack_path/flaresolverr"
+mkdir -p "$media_stack_path/transmission"
+mkdir -p "$media_stack_path/incomplete"
+
+# Uncomment the following lines if you want to create directories for Jellyfin
+mkdir -p "$media_stack_path/jellyfin"
+mkdir -p "$media_stack_path/jellyfin/cache"
+
+# Set appropriate permissions for the directories
+chmod -R 755 "$media_stack_path"
+
+# Output a message indicating successful directory creation
+echo "Media stack directories created successfully."
+

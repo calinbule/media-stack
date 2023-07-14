@@ -1,0 +1,115 @@
+version: '3.8'
+
+services:
+  plex:
+    image: plexinc/pms-docker
+    container_name: plex
+    restart: unless-stopped
+    networks:
+      - media-stack-network
+    ports:
+      - '32400:32400'
+    volumes:
+      - ${MEDIA_STACK_PATH}/plex:/config
+      - ${MEDIA_STACK_PATH}/transcode:/transcode
+      - '${MEDIA_STACK_MEDIA_DIRECTORY}:/data'
+      - ${MEDIA_STACK_PATH}/plex/cache:/plex/Library/Application Support/Plex Media Server/Cache
+    # Uncomment the following section for GPU support on Linux
+    # devices:
+    #   - /dev/dri:/dev/dri
+    environment:
+      - TZ=Europe/Bucharest
+
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    restart: unless-stopped
+    networks:
+      - media-stack-network
+    ports:
+      - '8096:8096'
+    volumes:
+      - ${MEDIA_STACK_PATH}/jellyfin:/config
+      - '${MEDIA_STACK_MEDIA_DIRECTORY}:/data'
+      - ${MEDIA_STACK_PATH}/jellyfin/cache:/cache
+    # Uncomment the following section for GPU support on Linux
+    # devices:
+    #   - /dev/dri:/dev/dri
+    environment:
+      - TZ=Europe/Bucharest
+      # Uncomment the following line to enable VAAPI for hardware acceleration
+      # - JELLYFIN_VAAPI_ENABLED=true
+
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    restart: unless-stopped
+    networks:
+      - media-stack-network
+    ports:
+      - '7878:7878'
+    volumes:
+      - ${MEDIA_STACK_PATH}/radarr:/config
+      - '${MEDIA_STACK_MEDIA_DIRECTORY}:/movies'
+      - ${MEDIA_STACK_PATH}/downloads:/downloads
+    environment:
+      - TZ=Europe/Bucharest
+
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    restart: unless-stopped
+    networks:
+      - media-stack-network
+    ports:
+      - '8989:8989'
+    volumes:
+      - ${MEDIA_STACK_PATH}/sonarr:/config
+      - '${MEDIA_STACK_MEDIA_DIRECTORY}:/tvshows'
+      - ${MEDIA_STACK_PATH}/downloads:/downloads
+    environment:
+      - TZ=Europe/Bucharest
+
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    restart: unless-stopped
+    networks:
+      - media-stack-network
+    ports:
+      - '9117:9117'
+    volumes:
+      - ${MEDIA_STACK_PATH}/jackett:/config
+    environment:
+      - TZ=Europe/Bucharest
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    restart: unless-stopped
+    networks:
+      - media-stack-network
+    ports:
+      - '8191:8191'
+    volumes:
+      - ${MEDIA_STACK_PATH}/flaresolverr:/config
+
+  transmission:
+    image: linuxserver/transmission
+    container_name: transmission
+    restart: unless-stopped
+    networks:
+      - media-stack-network
+    ports:
+      - '9091:9091'
+    volumes:
+      - ${MEDIA_STACK_PATH}/transmission:/config
+      - ${MEDIA_STACK_PATH}/downloads:/downloads
+      - ${MEDIA_STACK_PATH}/incomplete:/incomplete
+    environment:
+      - TZ=Europe/Bucharest
+
+networks:
+  media-stack-network:
+    driver: bridge
+
